@@ -2,12 +2,16 @@
 
 public abstract class BaseEntity
 {
-    public int Id { get; set; }
-    public int CreatedUserId { get; set; }
+    protected BaseEntity()
+    {
+        Id = Guid.CreateVersion7();
+    }
+    public Guid Id { get; set; }
+    public Guid CreatedUserId { get; set; }
     public DateTimeOffset CreateAt { get; set; }
-    public int UpdatedUserId { get; set; }
+    public Guid UpdatedUserId { get; set; }
     public DateTimeOffset UpdateAt { get; set; }
     public DateTimeOffset? DeleteAt { get; set; }
-    public int? DeleteUserId { get; set; }
+    public Guid? DeleteUserId { get; set; }
     public bool Status { get; set; }
 }

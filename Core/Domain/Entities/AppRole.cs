@@ -4,7 +4,9 @@ namespace Domain.Entities;
 
 public class AppRole : IdentityRole<Guid>
 {
-    public string Description { get; set; }
-    public string RoleCode { get; set; } = string.Empty;
-
+    public int? ParentId { get; set; }
+    public int RoleCode { get; set; }
+    public string? ModuleName { get; set; }
+    public string? Description { get; set; }
+    public int? Order { get; set; }
 }

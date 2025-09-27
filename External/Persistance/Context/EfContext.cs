@@ -1,5 +1,7 @@
 ﻿using Domain.Abstractions;
 using Domain.Entities;
+using Domain.ProductBrands;
+using Domain.Products;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -8,12 +10,13 @@ using System.Security.Claims;
 
 namespace Persistance.Context;
 
-public class EfContext : IdentityDbContext<AppUser, AppRole, Guid>, IUnitOfWork
+public partial class EfContext : IdentityDbContext<AppUser, AppRole, Guid>, IUnitOfWork
 {
     public EfContext(DbContextOptions options) : base(options)
     {
 
     }
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         foreach (var entityType in modelBuilder.Model.GetEntityTypes())
@@ -50,7 +53,7 @@ public class EfContext : IdentityDbContext<AppUser, AppRole, Guid>, IUnitOfWork
             .FirstOrDefault(p => p.Type == ClaimTypes.NameIdentifier)?
             .Value ?? "1";
 
-        int UserId = int.Parse(userIdString);
+        Guid UserId = Guid.Parse(userIdString);
         foreach (var entry in entries)
         {
             if (entry.State == EntityState.Added)
